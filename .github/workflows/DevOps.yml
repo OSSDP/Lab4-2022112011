@@ -1,6 +1,5 @@
 name: test
 
-# 设置触发工作流的事件：在main分支上发生推送与拉取请求时触发
 on:
   push:
     branches:
@@ -8,8 +7,8 @@ on:
   pull_request:
     branches:
       - main
+    types: [opened, synchronize]  # 当PR被打开或更新时触发
 
-# 定义工作流程
 jobs:
   run_workflow:
     runs-on: ubuntu-latest
@@ -34,10 +33,10 @@ jobs:
       - name: Run tests with Maven
         run: mvn -B test --file pom.xml
 
-      # 自动合并拉取请求
+      # 自动合并拉取请求，只有测试通过并且是 PR 更新或创建时
       - name: Auto-merge Pull Request
-        if : github.event_name == 'pull_request' && github.event.action == 'opened' && success()
+        if: github.event_name == 'pull_request' && github.event.action == 'synchronize' && success() || (github.event.action == 'opened' && success())
         run: |
-          gh pr merge ${{ github.pull_request.number }} --merge --admin
+          gh pr merge ${{ github.event.pull_request.number }} --merge --admin
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
