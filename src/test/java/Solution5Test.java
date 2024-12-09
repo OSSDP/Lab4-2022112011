@@ -51,7 +51,7 @@ public class Solution5Test {
     // 1. 测试正常情况，示例数据验证,题干中给出的情况
     @Test
     public void testNormalCaseExample1() {
-        int[] nums1 = {3, 5, 6, 7};
+        int[] nums1 = {4, 5, 6, 7};//将3，5，6，7，改成4,5,6,7
         int[] nums2 = {3, 3, 6, 8};
         int[] nums3 = {2, 3, 3, 4, 6, 7};
         int target1 = 9;
