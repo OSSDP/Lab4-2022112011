@@ -32,6 +32,7 @@ import java.util.Arrays;
  * 1 <= nums[i] <= 106
  * 1 <= target <= 106
  *
+ * 不能创建pr,修改一下
  */
 public class Solution5 {
     static final int P = 1_000_000_007; // 模数
